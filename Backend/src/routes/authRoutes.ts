@@ -14,27 +14,27 @@ router.get(
 );
 
 // // vårt försök:
-// router.get(
-//   "/google/callback",
-//   passport.authenticate("google", {
-//     successRedirect: "http://localhost:5173/campaigns",
-//     failureRedirect: "/login",
-//   })
-// );
-
-// försök att hitta connect.sid (alltså session id cookie för express-session)
 router.get(
   "/google/callback",
-  passport.authenticate(
-    "google",
-    {
-      successRedirect: "http://localhost:5173/campaigns",
-      failureRedirect: "/login",
-    },
-    (req, res) => {
-      const sessionId = req.sessionID;
-      //console.log(sessionId);
-    }
-  )
+  passport.authenticate("google", {
+    successRedirect: "http://localhost:5173/campaigns",
+    failureRedirect: "/login",
+  })
 );
+
+// försök att hitta connect.sid (alltså session id cookie för express-session)
+// router.get(
+//   "/google/callback",
+//   passport.authenticate(
+//     "google",
+//     {
+//       successRedirect: "http://localhost:5173/campaigns",
+//       failureRedirect: "/login",
+//     },
+//     (req, res) => {
+//       const sessionId = req.sessionID;
+//       //console.log(sessionId);
+//     }
+//   )
+// );
 export default router;
