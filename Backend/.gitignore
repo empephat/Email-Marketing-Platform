@@ -1,0 +1,8 @@
+# Node-moduler
+node_modules/
+
+# Byggmappar
+dist/
+
+# .env filer
+.env
