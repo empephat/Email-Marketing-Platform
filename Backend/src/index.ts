@@ -1,14 +1,14 @@
+import dotenv from "dotenv";
 import express from "express";
 import passport from "passport";
 import session from "express-session";
-import dotenv from "dotenv";
-import "./strategies/google-strategy";
 import emailRoutes from "./routes/emailRoutes";
 import campaignRoutes from "./routes/campaignRoutes";
 import authRoutes from "./routes/authRoutes";
 import cors, { CorsOptions } from "cors";
-
 dotenv.config();
+import "./strategies/google-strategy";
+
 
 const app = express();
 const PORT = 3000;
