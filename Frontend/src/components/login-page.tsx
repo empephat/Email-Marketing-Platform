@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export function LoginPage() {
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      window.location.href = "http: ";
+      window.location.href = "http://localhost:3000/auth/google";
     } catch (error) {
       console.error("Fel vid Google-inloggning:", error);
       // Visa ett felmeddelande för användaren
