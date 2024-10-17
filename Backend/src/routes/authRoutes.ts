@@ -1,40 +1,59 @@
-import { NextFunction, Request, Response, Router } from "express";
+
+import { User } from "@prisma/client";
+import { Router } from "express";
+
 import passport from "passport";
 
 const router = Router();
 
-interface User {
-  id: string;
-}
 
-// Google OAuth-routes
-router.get(
-  "/google",
+
+//* Google OAuth-routes
+router.get("/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-// // vårt försök:
-// router.get(
-//   "/google/callback",
-//   passport.authenticate("google", {
-//     successRedirect: "http://localhost:5173/campaigns",
-//     failureRedirect: "/login",
-//   })
-// );
-
-// försök att hitta connect.sid (alltså session id cookie för express-session)
-router.get(
-  "/google/callback",
-  passport.authenticate(
-    "google",
-    {
-      successRedirect: "http://localhost:5173/campaigns",
-      failureRedirect: "/login",
-    },
-    (req, res) => {
-      const sessionId = req.sessionID;
-      //console.log(sessionId);
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    if (req.user) {
+      res.redirect('http://localhost:5173/campaigns')
+    } else {
+      res.status(400).json({ message: 'Could not log in with Google' });
+      res.redirect('http://localhost:5173/login')
     }
-  )
+  }
 );
+
+
+//* Logout route
+router.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      console.error('Fel vid utloggning:', err);
+      return res.status(500).json({ message: 'Fel vid utloggning' });
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Fel vid förstöring av session:', err);
+      }
+      res.clearCookie('connect.sid'); // Eller det namn du använder för din sessionscookie
+      res.status(200).json({ message: 'Utloggad' });
+    });
+  });
+});
+
+
+
+//* Check if user is authenticated
+router.get('/status', (req, res) => {
+  console.log('Session:', req.session);
+  console.log('User:', req.user);
+  if (req.isAuthenticated()) {
+    res.json({ isAuthenticated: true, user: req.user });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
+
 export default router;

@@ -1,32 +1,27 @@
+import dotenv from "dotenv";
 import express from "express";
 import passport from "passport";
 import session from "express-session";
-import dotenv from "dotenv";
-import "./strategies/google-strategy";
 import emailRoutes from "./routes/emailRoutes";
 import campaignRoutes from "./routes/campaignRoutes";
 import authRoutes from "./routes/authRoutes";
-import cors, { CorsOptions } from "cors";
-
+import cors from "cors";
 dotenv.config();
+import "./strategies/google-strategy";
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+//* Cors configuration
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
-const corsOptions: CorsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true,
-  methods: "GET",
-  allowedHeaders: ["Content-Type"],
-};
 
-app.use(cors(corsOptions));
-
+//* Session setup
 const sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret) throw new Error("SESSION_SECRET must be set");
-
 app.use(
   session({
     secret: sessionSecret,
@@ -36,15 +31,15 @@ app.use(
       secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
       httpOnly: true,
       maxAge: 60 * 60 * 1000, // 1.5 hour
+
     },
   })
 );
 
-// req.session.userId = user.id
-// req.session.userId = "en kokkiie sattes"
-
+//* Middlewares
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json());
 
 //* Routes
 app.use("/auth", authRoutes);
