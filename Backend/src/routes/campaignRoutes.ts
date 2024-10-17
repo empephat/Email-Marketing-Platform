@@ -1,5 +1,7 @@
 import { Router } from "express";
 import prisma from "../db/prisma";
+import { isAuthenticated } from "../middleware/auth";
+
 const router = Router();
 
 //*Create new campaign --------------------------------->
@@ -69,10 +71,19 @@ router.post("/createcampaign", async (req, res) => {
   }
 });
 
-//*get ALL campaign
-router.get("/allcampaigns", async (req, res) => {
+
+//* GET Campaigns owned by authorized user 
+router.get("/", isAuthenticated, async (req, res) => {
+
+  if (!req.user) {
+    return res.status(401).json({ error: "User not authenticated" });
+  }
+
   try {
     const campaigns = await prisma.campaign.findMany({
+      where: {
+        userId: req.user.id // Find campaigns connected to user by user id
+      },
       select: {
         id: true,
         campaignName: true,
