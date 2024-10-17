@@ -2,13 +2,15 @@ import express from "express";
 import passport from "passport";
 import session from "express-session";
 import dotenv from "dotenv";
+dotenv.config();
 import "./strategies/google-strategy";
 import emailRoutes from "./routes/emailRoutes";
 import campaignRoutes from "./routes/campaignRoutes";
 import authRoutes from "./routes/authRoutes";
-import cors, { CorsOptions } from "cors";
+import generateTextRoute from './routes/generateText'
+import { CorsOptions } from "cors";
+import cors from "cors"
 
-dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -40,9 +42,6 @@ app.use(
   })
 );
 
-// req.session.userId = user.id
-// req.session.userId = "en kokkiie sattes"
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,6 +49,8 @@ app.use(passport.session());
 app.use("/auth", authRoutes);
 app.use("/api/campaigns", emailRoutes);
 app.use("/api/campaigns", campaignRoutes);
+app.use("/api/generateText", generateTextRoute)
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);

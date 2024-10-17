@@ -10,6 +10,7 @@
     "express": "^4.21.0",
     "express-session": "^1.18.0",
     "nodemon": "^3.1.6",
+    "openai": "^4.67.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "prisma": "^5.19.1",
