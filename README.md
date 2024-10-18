@@ -1,5 +1,6 @@
 # SÅHÄR SER VÅR .ENV ut : Vänligen fyll i och njut :)
 
+```
 # Connect to Supabase via connection pooling with Supavisor.
 DATABASE_URL=""
 # Direct connection to the database. Used for migrations.
@@ -14,3 +15,5 @@ SESSION_SECRET="köpBananerItvåpack"
 
 # OPEN AI KEYYY:key::old_key:
 OPENAI_API_KEY=
+
+```
