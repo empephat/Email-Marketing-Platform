@@ -13,7 +13,7 @@ GOOGLE_CLIENT_SECRET=""
 # Session
 SESSION_SECRET="köpBananerItvåpack"
 
-# OPEN AI KEYYY:key::old_key:
+# OPEN AI KEYYY: 🔑
 OPENAI_API_KEY=
 
 ```
