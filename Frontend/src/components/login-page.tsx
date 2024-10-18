@@ -82,13 +82,13 @@ export function LoginPage() {
               Forgot Password?
             </Link> */}
           </div>
-          <Button className="w-full py-2 mt-4 text-white bg-green-600 rounded-md">
+          <Button className="w-full py-2 mt-4 text-white bg-green-600 rounded-md" disabled>
             Login
           </Button>
 
           <button
             onClick={handleGoogleLogin}
-            className="w-full py-2 mt-2 text-green-600 border border-green-600 rounded-md"
+            className="w-full py-2 mt-2 text-green-600 border border-green-600 rounded-md hover:text-white hover:bg-green-600 transition-colors duration-300 ease-in-out"
           >
             Login with Google
           </button>
@@ -96,7 +96,7 @@ export function LoginPage() {
       </Card>
       <p className="mt-4 text-sm text-green-700">
         Don't have an account?{" "}
-        <Link to="/" className="font-medium text-green-800">
+        <Link to="/" className="font-medium text-green-600 hover:text-green-500">
           Register
         </Link>
       </p>

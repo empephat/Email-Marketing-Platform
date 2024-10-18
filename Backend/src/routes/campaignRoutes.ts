@@ -167,13 +167,17 @@ router.get("/:id", async (req, res) => {
 // })
 
 // //* delete one campaign-------------KOD PÅ G-------------------->
-// router.delete('/:id', async (req, res) => {
-//   try {
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.campaign.delete({
+      where: { id },
+    });
+    res.status(200).json({ message: 'Campaign deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ error: 'unable to delete campaign' })
+  }
 
-//   } catch (error) {
-//     res.status(400).json({ error: 'unable to delete campaign' })
-//   }
-
-// })
+})
 
 export default router;

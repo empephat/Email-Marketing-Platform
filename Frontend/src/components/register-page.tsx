@@ -99,11 +99,12 @@ export function RegisterPage() {
             Register
           </Button>
           <button
-            className="w-full py-2 mt-2 text-green-600 border border-green-600 rounded-md"
+            className="w-full py-2 mt-2 text-green-600 border border-green-600 rounded-md hover:text-white hover:bg-green-600 transition-colors duration-300 ease-in-out"
             onClick={handleGoogleRegister}
           >
             Register with Google
           </button>
+
         </form>
         <p className="mt-8 text-center text-sm text-gray-600">
           Already have an account?{" "}

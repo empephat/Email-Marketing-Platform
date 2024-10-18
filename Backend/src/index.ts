@@ -2,21 +2,28 @@ import dotenv from "dotenv";
 import express from "express";
 import passport from "passport";
 import session from "express-session";
+dotenv.config();
+import "./strategies/google-strategy";
 import emailRoutes from "./routes/emailRoutes";
 import campaignRoutes from "./routes/campaignRoutes";
 import authRoutes from "./routes/authRoutes";
-import cors from "cors";
-dotenv.config();
-import "./strategies/google-strategy";
+import generateTextRoute from './routes/generateText'
+import { CorsOptions } from "cors";
+import cors from "cors"
+
 
 const app = express();
 const PORT = 3000;
 
 //* Cors configuration
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+const corsOptions: CorsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+  methods: "GET, DELETE",
+  allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
 
 
 //* Session setup
@@ -36,6 +43,7 @@ app.use(
   })
 );
 
+
 //* Middlewares
 app.use(passport.initialize());
 app.use(passport.session());
@@ -43,8 +51,10 @@ app.use(express.json());
 
 //* Routes
 app.use("/auth", authRoutes);
-app.use("/api/campaigns", emailRoutes);
-app.use("/api/campaigns", campaignRoutes);
+app.use("/api/generateText", generateTextRoute)
+app.use("/api/campaigns", campaignRoutes)
+app.delete("/api/campaigns/", campaignRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
