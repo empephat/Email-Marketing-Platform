@@ -25,9 +25,11 @@ export function CampaignListAndCreate() {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/campaigns/allcampaigns"
-        );
+        const response = await fetch("http://localhost:3000/api/campaigns/", {
+          credentials: "include",
+          // The 'credentials: "include"' option in the fetch request allows the browser to send cookies and other credentials along with the request.
+          // This is necessary for the server to recognize the user's session and authorize the request.
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch campaigns");
         }
