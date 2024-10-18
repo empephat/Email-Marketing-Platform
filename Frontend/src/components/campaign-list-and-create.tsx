@@ -41,6 +41,25 @@ export function CampaignListAndCreate() {
     fetchCampaigns();
   }, []);
 
+  const handleDelete = async (id: any) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/campaigns/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Update the UI after deletion
+        setCampaigns(campaigns.filter(campaign => campaign.id !== id));
+        console.log(id)
+      } else {
+        console.log(id)
+        console.error('Failed to delete the campaign');
+      }
+    } catch (error) {
+      console.error('Error deleting campaign:', error);
+    }
+  };
+
   const [newCampaign, setNewCampaign] = useState({
     campaignName: "",
     companyName: "komåpaninamnet",
@@ -95,19 +114,21 @@ export function CampaignListAndCreate() {
   return (
     <div className="min-h-screen bg-green-50 p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-green-800 mb-8">
-          Email Marketing Platform
+        <h1 className="text-3xl font-bold text-green-800 mb-8 text-center">
+          Current Campaigns
         </h1>
 
-        <div className="mb-8">
+        <div className="flex justify-center mb-8">
           <Button
             onClick={() => setIsFormVisible(true)}
             className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center"
           >
             <PlusCircle className="mr-2" />
-            Add Campaign
+            Add New Campaign
           </Button>
         </div>
+
+
 
         {isFormVisible && (
           <Card className="bg-white shadow-lg mb-8">
@@ -215,6 +236,11 @@ export function CampaignListAndCreate() {
                 <p className="text-green-700 mt-2">
                   {campaign.companyDescription}
                 </p>
+                <button
+                  className="mt-4 bg-red-400 hover:bg-red-700 text-white py-2 px-3 rounded transition duration-200"
+                  onClick={() => handleDelete(campaign.id)}>
+                  Delete
+                </button>
               </CardContent>
             </Card>
           ))}

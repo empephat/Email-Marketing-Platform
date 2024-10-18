@@ -2,6 +2,7 @@ import "./index.css";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RegisterPage } from "./components/register-page";
+import { StartPage } from "./components/start-page"
 import { LoginPage } from "./components/login-page";
 import { CampaignListAndCreate } from "./components/campaign-list-and-create";
 import { CampaignDetailsAndEmails } from "./components/campaign-details-and-emails";
@@ -15,7 +16,7 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<RegisterPage />} />
+            <Route path="/" element={<StartPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/campaigns" element={<CampaignListAndCreate />} />

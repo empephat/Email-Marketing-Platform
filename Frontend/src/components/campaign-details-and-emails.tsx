@@ -28,12 +28,46 @@ export function CampaignDetailsAndEmails() {
     }
   }
 
+
+  const handleGenerateAiEmail = () => {
+    console.log("ni klack du på knappen för att generera ai innehåll")
+    setNewContent("laddar....")
+
+    fetchAiEmail(prompt)
+  }
+
+
+  //// HÄR SKA DET FETCHAS 🤠🤠🤠🤠🤠🤠
+  const fetchAiEmail = async (prompt: any) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/generateText/", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await response.json();
+      console.log(data)
+      setNewContent(data.content);
+      setNewSubject(data.subject);
+
+      // Unexpected non-whitespace character after JSON at position 256 (line 1 column 257)
+
+      // return data.response;
+    } catch (err: any) {
+      console.error("Fel vid generering av text", err.message);
+    }
+  }
+
+
+
   return (
-    <div className="min-h-screen bg-green-50">
-      <div className="container mx-auto p-4 space-y-8">
+    <div className="min-h-screen bg-green-50 p-8">
+      <div className="max-w-6xl mx-auto">
         {/* Page Title */}
-        <h1 className="text-4xl font-bold text-center text-green-800 py-6">
-          Email Marketing Campaign Manager
+        <h1 className="text-3xl font-bold text-center text-green-800 mb-8">
+          Campaign Manager
         </h1>
 
         {/* Header Section */}
@@ -77,10 +111,11 @@ export function CampaignDetailsAndEmails() {
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Prompt till AI"
             required
-            className="border-green-300 focus:border-black-400 focus:bg-white mb-2"
+            className="border-2 border-green-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-500 hover:border-green-400 transition-all duration-300 ease-in-out shadow-sm rounded-lg mb-2 hover:bg-white"
           />
+
           <Button
-            type="submit"
+            onClick={handleGenerateAiEmail}
             className="bg-green-600 hover:bg-green-700 text-white transition-colors duration-300 focus:ring-2 focus:ring-black-400 focus:ring-offset-2"
           >
             Generate AI Description
@@ -98,7 +133,7 @@ export function CampaignDetailsAndEmails() {
                 onChange={(e) => setNewSubject(e.target.value)}
                 placeholder="Email subject..."
                 required
-                className="border-green-300 focus:border-black-400 focus:bg-white"
+                className="border-2 border-green-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-500 hover:border-green-400 transition-all duration-300 ease-in-out shadow-sm rounded-lg mb-2 hover:bg-white"
               />
             </div>
             <div>
@@ -111,7 +146,7 @@ export function CampaignDetailsAndEmails() {
                 onChange={(e) => setNewContent(e.target.value)}
                 placeholder="Email content..."
                 required
-                className="min-h-[100px] border-green-300 focus:border-black-400 focus:bg-white"
+                className="min-h-[100px] border-2 border-green-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-500 hover:border-green-400 transition-all duration-300 ease-in-out shadow-sm rounded-lg mb-2 hover:bg-white"
               />
             </div>
             <Button

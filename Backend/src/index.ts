@@ -20,7 +20,7 @@ app.use(express.json());
 const corsOptions: CorsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
-  methods: "GET",
+  methods: "GET, DELETE",
   allowedHeaders: ["Content-Type"],
 };
 
@@ -47,9 +47,9 @@ app.use(passport.session());
 
 //* Routes
 app.use("/auth", authRoutes);
-app.use("/api/campaigns", emailRoutes);
-app.use("/api/campaigns", campaignRoutes);
 app.use("/api/generateText", generateTextRoute)
+app.use("/api/campaigns", campaignRoutes)
+app.delete("/api/campaigns/", campaignRoutes);
 
 
 app.listen(PORT, () => {
