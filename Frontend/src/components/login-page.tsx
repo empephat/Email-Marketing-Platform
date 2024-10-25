@@ -3,12 +3,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import envMode from "./helper/checkENVmode";
 
 export function LoginPage() {
   const handleGoogleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      window.location.href = "http://localhost:3000/auth/google";
+      window.location.href = `${envMode}/auth/google`;
     } catch (error) {
       console.error("Fel vid Google-inloggning:", error);
       // Visa ett felmeddelande för användaren

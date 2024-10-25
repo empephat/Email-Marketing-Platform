@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import envMode from "./helper/checkENVmode";
 
 export function RegisterPage() {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ export function RegisterPage() {
   // från chat gpt :)
   const handleGoogleRegister = () => {
     try {
-      window.location.href = "http://localhost:3000/auth/google";
+      window.location.href = `${envMode}/auth/google`;
     } catch (error) {
       console.error("Fel vid Google-registrering:", error);
       // Visa ett felmeddelande för användaren

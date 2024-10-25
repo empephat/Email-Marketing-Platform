@@ -1,3 +1,4 @@
+import envMode from "@/components/helper/checkENVmode";
 import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
@@ -5,7 +6,7 @@ function Header() {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:3000/auth/logout", {
+      const response = await fetch(`${envMode}/auth/logout`, {
         method: "GET",
         credentials: "include", // Viktigt för att skicka med cookies
       });
