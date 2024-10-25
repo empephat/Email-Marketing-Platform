@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle, X } from "lucide-react";
+import envMode from "./helper/checkENVmode";
 
 interface Campaign {
   id: string;
@@ -25,7 +26,7 @@ export function CampaignListAndCreate() {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/campaigns/", {
+        const response = await fetch(`${envMode}/api/campaigns/`, {
           credentials: "include",
           // The 'credentials: "include"' option in the fetch request allows the browser to send cookies and other credentials along with the request.
           // This is necessary for the server to recognize the user's session and authorize the request.
@@ -45,7 +46,7 @@ export function CampaignListAndCreate() {
 
   const handleDelete = async (id: any) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/campaigns/${id}`, {
+      const response = await fetch(`${envMode}/api/campaigns/${id}`, {
         method: 'DELETE',
       });
 
@@ -88,7 +89,7 @@ export function CampaignListAndCreate() {
     try {
       console.log(newCampaign);
       const response = await fetch(
-        "http://localhost:3000/api/campaigns/createcampaign",
+        `${envMode}/api/campaigns/createcampaign`,
         {
           method: "POST",
           headers: {
