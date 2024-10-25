@@ -1,4 +1,5 @@
 # SÅHÄR SER VÅR .ENV ut : Vänligen fyll i och njut :)
+här är en teständring
 
 ```
 # Connect to Supabase via connection pooling with Supavisor.
