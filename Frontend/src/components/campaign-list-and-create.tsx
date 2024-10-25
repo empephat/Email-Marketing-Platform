@@ -21,6 +21,13 @@ interface Campaign {
 }
 export function CampaignListAndCreate() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [newCampaign, setNewCampaign] = useState({
+    campaignName: "",
+    companyName: "Company(hard coded)",
+    companyDescription: "",
+    productDescription: "",
+    targetAudience: "",
+  });
 
   useEffect(() => {
     const fetchCampaigns = async () => {
@@ -45,31 +52,25 @@ export function CampaignListAndCreate() {
 
   const handleDelete = async (id: any) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/campaigns/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/campaigns/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
         // Update the UI after deletion
-        setCampaigns(campaigns.filter(campaign => campaign.id !== id));
-        console.log(id)
+        setCampaigns(campaigns.filter((campaign) => campaign.id !== id));
+        console.log(id);
       } else {
-        console.log(id)
-        console.error('Failed to delete the campaign');
+        console.log(id);
+        console.error("Failed to delete the campaign");
       }
     } catch (error) {
-      console.error('Error deleting campaign:', error);
+      console.error("Error deleting campaign:", error);
     }
   };
-
-  const [newCampaign, setNewCampaign] = useState({
-    campaignName: "",
-    companyName: "komåpaninamnet",
-    companyDescription: "",
-    productDescription: "",
-    targetAudience: "",
-    userId: "fbdaca97-182a-46e8-97d0-c93592b07705",
-  });
 
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -82,15 +83,13 @@ export function CampaignListAndCreate() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    //hårdkodat userId
-    // const companyName = "ett namn";
     try {
       console.log(newCampaign);
       const response = await fetch(
         "http://localhost:3000/api/campaigns/createcampaign",
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -129,8 +128,6 @@ export function CampaignListAndCreate() {
             Add New Campaign
           </Button>
         </div>
-
-
 
         {isFormVisible && (
           <Card className="bg-white shadow-lg mb-8">
@@ -240,7 +237,8 @@ export function CampaignListAndCreate() {
                 </p>
                 <button
                   className="mt-4 bg-red-400 hover:bg-red-700 text-white py-2 px-3 rounded transition duration-200"
-                  onClick={() => handleDelete(campaign.id)}>
+                  onClick={() => handleDelete(campaign.id)}
+                >
                   Delete
                 </button>
               </CardContent>
