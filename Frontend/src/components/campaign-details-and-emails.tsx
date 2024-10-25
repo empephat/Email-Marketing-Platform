@@ -41,7 +41,7 @@ export function CampaignDetailsAndEmails() {
   //// HÄR SKA DET FETCHAS 🤠🤠🤠🤠🤠🤠
   const fetchAiEmail = async (prompt: any) => {
     try {
-      const response = await fetch(`${envMode}/api/generateText/`, {
+      const response = await fetch(`${envMode()}/api/generateText/`, {
         method: "POST",
         headers: {
           "content-Type": "application/json",

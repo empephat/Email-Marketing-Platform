@@ -3,7 +3,7 @@ import envMode from "@/components/helper/checkENVmode";
 function Footer() {
   const checkUser = async () => {
     try {
-      const response = await fetch(`${envMode}/auth/status`, {
+      const response = await fetch(`${envMode()}/auth/status`, {
         credentials: "include", // This line adds the credentials
       });
       if (!response.ok) {

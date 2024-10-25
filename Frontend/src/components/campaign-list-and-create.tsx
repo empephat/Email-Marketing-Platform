@@ -26,7 +26,7 @@ export function CampaignListAndCreate() {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const response = await fetch(`${envMode}/api/campaigns/`, {
+        const response = await fetch(`${envMode()}/api/campaigns/`, {
           credentials: "include",
           // The 'credentials: "include"' option in the fetch request allows the browser to send cookies and other credentials along with the request.
           // This is necessary for the server to recognize the user's session and authorize the request.
@@ -46,7 +46,7 @@ export function CampaignListAndCreate() {
 
   const handleDelete = async (id: any) => {
     try {
-      const response = await fetch(`${envMode}/api/campaigns/${id}`, {
+      const response = await fetch(`${envMode()}/api/campaigns/${id}`, {
         method: 'DELETE',
       });
 
@@ -89,7 +89,7 @@ export function CampaignListAndCreate() {
     try {
       console.log(newCampaign);
       const response = await fetch(
-        `${envMode}/api/campaigns/createcampaign`,
+        `${envMode()}/api/campaigns/createcampaign`,
         {
           method: "POST",
           headers: {

@@ -17,7 +17,7 @@ export function RegisterPage() {
   // från chat gpt :)
   const handleGoogleRegister = () => {
     try {
-      window.location.href = `${envMode}/auth/google`;
+      window.location.href = `${envMode()}/auth/google`;
     } catch (error) {
       console.error("Fel vid Google-registrering:", error);
       // Visa ett felmeddelande för användaren

@@ -6,7 +6,7 @@ function Header() {
 
   const logout = async () => {
     try {
-      const response = await fetch(`${envMode}/auth/logout`, {
+      const response = await fetch(`${envMode()}/auth/logout`, {
         method: "GET",
         credentials: "include", // Viktigt för att skicka med cookies
       });
