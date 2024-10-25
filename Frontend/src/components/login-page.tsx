@@ -9,7 +9,7 @@ export function LoginPage() {
   const handleGoogleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      window.location.href = `${envMode}/auth/google`;
+      window.location.href = `${envMode()}/auth/google`;
     } catch (error) {
       console.error("Fel vid Google-inloggning:", error);
       // Visa ett felmeddelande för användaren
