@@ -13,11 +13,17 @@ import cors from "cors"
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+const allowedOrigins = process.env.NODE_ENV === "production" ? [
+  "",
+] : [
+  "http://localhost:5173/",
+];
 
 //* Cors configuration
 const corsOptions: CorsOptions = {
-  origin: "http://localhost:5173",
+  origin: allowedOrigins,
   credentials: true,
   methods: "GET, DELETE",
   allowedHeaders: ["Content-Type"],
@@ -59,3 +65,6 @@ app.delete("/api/campaigns/", campaignRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
+
+
+export default app;
