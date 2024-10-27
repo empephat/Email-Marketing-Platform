@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import envMode from './helper/checkENVmode'
 
 interface Email {
   subject: string
@@ -40,7 +41,7 @@ export function CampaignDetailsAndEmails() {
   //// HÄR SKA DET FETCHAS 🤠🤠🤠🤠🤠🤠
   const fetchAiEmail = async (prompt: any) => {
     try {
-      const response = await fetch("http://localhost:3000/api/generateText/", {
+      const response = await fetch(`${envMode()}/api/generateText/`, {
         method: "POST",
         headers: {
           "content-Type": "application/json",
