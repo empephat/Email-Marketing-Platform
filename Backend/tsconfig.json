@@ -2,19 +2,13 @@
   "compilerOptions": {
     "target": "ES2023",
     "module": "NodeNext",
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "typeRoots": [
-      "./src/types",
-      "./node_modules/@types"
-    ]
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
-  "include": [
-    "src/**/*",
-    "api/**/*"
-  ]
+  "include": ["src/**/*", "api/**/*"]
 }
