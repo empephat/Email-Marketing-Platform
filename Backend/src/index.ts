@@ -16,9 +16,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = process.env.NODE_ENV === "production" ? [
-  "https://email-marketing-platform-frontend.vercel.app/",
+  "https://email-marketing-platform-frontend.vercel.app",
 ] : [
-  "http://localhost:5173/",
+  "http://localhost:5173",
 ];
 
 //* Cors configuration
