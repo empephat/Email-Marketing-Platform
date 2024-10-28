@@ -7,6 +7,10 @@ import passport from "passport";
 const router = Router();
 
 
+let url = process.env.NODE_ENV === 'production'
+  ? "https://email-marketing-platform-frontend.vercel.app"
+  : "http://localhost:5173";
+
 
 //* Google OAuth-routes
 router.get("/google",
@@ -14,13 +18,13 @@ router.get("/google",
 );
 
 router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: `${url}/login` }),
   (req, res) => {
     if (req.user) {
-      res.redirect('http://localhost:5173/campaigns')
+      res.redirect(`${url}/campaigns`)
     } else {
       res.status(400).json({ message: 'Could not log in with Google' });
-      res.redirect('http://localhost:5173/login')
+      res.redirect(`${url}/login`)
     }
   }
 );
