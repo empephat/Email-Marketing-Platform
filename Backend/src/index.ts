@@ -31,6 +31,8 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 
+// Detta behövs för att Express ska lita på proxy headers
+app.set('trust proxy', 1);
 
 //* Session setup
 const sessionSecret = process.env.SESSION_SECRET;
@@ -40,10 +42,12 @@ app.use(
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
+    proxy: true, // Viktigt för Vercel/proxy miljöer
     cookie: {
       secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // Krävs för att cookies ska fungera mellan olika domäner i production
       httpOnly: true,
-      maxAge: 60 * 60 * 1000, // 1.5 hour
+      maxAge: 60 * 60 * 1000, // 1 hour
 
     },
   })
