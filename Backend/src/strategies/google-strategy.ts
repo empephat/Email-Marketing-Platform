@@ -11,12 +11,16 @@ if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
   throw new Error("Google Client ID eller Secret saknas i miljövariabler.");
 }
 
+let url = process.env.NODE_ENV === 'production'
+  ? "https://email-marketing-platform-backend.vercel.app"
+  : "http://localhost:3000";
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: `${url}/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

@@ -4,7 +4,7 @@ const envMode = () => {
         return "http://localhost:3000"
     } else if (import.meta.env.MODE === "production") {
 
-        return "https://email-marketing-platform-backend.vercel.app/"
+        return "https://email-marketing-platform-backend.vercel.app"
     }
 }
 
