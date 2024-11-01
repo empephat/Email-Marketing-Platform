@@ -6,8 +6,12 @@ name: Node.js CI
 on:
   push:
     branches: ["*"]
+    paths:
+      - "Backend/**"
   pull_request:
     branches: ["*"]
+    paths:
+      - "Backend/**"
 
 jobs:
   build:
@@ -25,7 +29,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm ci
+      # Installera dependencies
+      - name: Install dependencies
+        run: npm ci
+
       - run: npm run build --if-present
+
       - run: npm test
-      - run: npm run lint
+
+      - name: Run ESLint
+        run: |
+          npm run lint
+          npm run lint:fix
