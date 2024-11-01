@@ -1,10 +1,8 @@
-import { User as PrismaUser } from '@prisma/client'
-import 'express-session';
+import { User as PrismaUser } from "@prisma/client";
+import "express-session";
 
-
-declare module 'express-session' {
+declare module "express-session" {
   interface SessionData {
     user?: PrismaUser;
   }
 }
-

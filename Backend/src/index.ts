@@ -7,19 +7,17 @@ import "./strategies/google-strategy";
 import emailRoutes from "./routes/emailRoutes";
 import campaignRoutes from "./routes/campaignRoutes";
 import authRoutes from "./routes/authRoutes";
-import generateTextRoute from './routes/generateText'
+import generateTextRoute from "./routes/generateText";
 import { CorsOptions } from "cors";
-import cors from "cors"
-
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = process.env.NODE_ENV === "production" ? [
-  "https://email-marketing-platform-frontend.vercel.app",
-] : [
-  "http://localhost:5173",
-];
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? ["https://email-marketing-platform-frontend.vercel.app"]
+    : ["http://localhost:5173"];
 
 //* Cors configuration
 const corsOptions: CorsOptions = {
@@ -32,7 +30,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 
 // Detta behövs för att Express ska lita på proxy headers
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 //* Session setup
 const sessionSecret = process.env.SESSION_SECRET;
@@ -45,14 +43,12 @@ app.use(
     proxy: true, // Viktigt för Vercel/proxy miljöer
     cookie: {
       secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
-      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // Krävs för att cookies ska fungera mellan olika domäner i production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Krävs för att cookies ska fungera mellan olika domäner i production
       httpOnly: true,
       maxAge: 60 * 60 * 1000, // 1 hour
-
     },
-  })
+  }),
 );
-
 
 //* Middlewares
 app.use(passport.initialize());
@@ -61,14 +57,12 @@ app.use(express.json());
 
 //* Routes
 app.use("/auth", authRoutes);
-app.use("/api/generateText", generateTextRoute)
-app.use("/api/campaigns", campaignRoutes)
+app.use("/api/generateText", generateTextRoute);
+app.use("/api/campaigns", campaignRoutes);
 app.delete("/api/campaigns/", campaignRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
-
 
 export default app;

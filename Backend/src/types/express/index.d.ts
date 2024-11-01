@@ -1,5 +1,4 @@
 declare namespace Express {
-
   interface Request {
     user?: User; // Se till att den här är korrekt
   }

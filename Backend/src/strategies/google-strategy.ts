@@ -1,8 +1,6 @@
-
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import prisma from "../db/prisma";
-
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
@@ -11,9 +9,10 @@ if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
   throw new Error("Google Client ID eller Secret saknas i miljövariabler.");
 }
 
-let url = process.env.NODE_ENV === 'production'
-  ? "https://email-marketing-platform-backend.vercel.app"
-  : "http://localhost:3000";
+const url =
+  process.env.NODE_ENV === "production"
+    ? "https://email-marketing-platform-backend.vercel.app"
+    : "http://localhost:3000";
 
 passport.use(
   new GoogleStrategy(
@@ -45,8 +44,8 @@ passport.use(
       } catch (error) {
         done(error as Error);
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.serializeUser((user, done) => {
@@ -57,7 +56,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id: string, done) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { id }
+      where: { id },
     });
     done(null, user);
   } catch (error) {

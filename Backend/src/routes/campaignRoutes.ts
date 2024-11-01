@@ -71,10 +71,8 @@ router.post("/createcampaign", async (req, res) => {
   }
 });
 
-
-//* GET Campaigns owned by authorized user 
+//* GET Campaigns owned by authorized user
 router.get("/", isAuthenticated, async (req, res) => {
-
   if (!req.user) {
     return res.status(401).json({ error: "User not authenticated" });
   }
@@ -82,7 +80,7 @@ router.get("/", isAuthenticated, async (req, res) => {
   try {
     const campaigns = await prisma.campaign.findMany({
       where: {
-        userId: req.user.id // Find campaigns connected to user by user id
+        userId: req.user.id, // Find campaigns connected to user by user id
       },
       select: {
         id: true,
@@ -167,17 +165,16 @@ router.get("/:id", async (req, res) => {
 // })
 
 // //* delete one campaign-------------KOD PÅ G-------------------->
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await prisma.campaign.delete({
       where: { id },
     });
-    res.status(200).json({ message: 'Campaign deleted successfully' });
+    res.status(200).json({ message: "Campaign deleted successfully" });
   } catch (error) {
-    res.status(400).json({ error: 'unable to delete campaign' })
+    res.status(400).json({ error: "unable to delete campaign" });
   }
-
-})
+});
 
 export default router;
