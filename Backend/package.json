@@ -35,7 +35,8 @@
     "vercel-build": "prisma generate",
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "author": "",
   "license": "ISC",
