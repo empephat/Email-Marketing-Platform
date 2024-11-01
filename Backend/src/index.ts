@@ -29,7 +29,7 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 
-// Detta behövs för att Express ska lita på proxy headers
+// Detta behövs för att Express ska lita på proxy headers okej va bra
 app.set("trust proxy", 1);
 
 //* Session setup
@@ -47,7 +47,7 @@ app.use(
       httpOnly: true,
       maxAge: 60 * 60 * 1000, // 1 hour
     },
-  }),
+  })
 );
 
 //* Middlewares
