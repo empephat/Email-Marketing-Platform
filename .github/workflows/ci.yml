@@ -29,15 +29,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: Backend/package-lock.json
+
       # Installera dependencies
       - name: Install dependencies
+        working-directory: ./Backend
         run: npm ci
 
       - run: npm run build --if-present
+        working-directory: ./Backend
 
       - run: npm test
+        working-directory: ./Backend
 
       - name: Run ESLint
+        working-directory: ./Backend
         run: |
           npm run lint
           npm run lint:fix
