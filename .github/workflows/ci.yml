@@ -6,8 +6,12 @@ name: Node.js CI
 on:
   push:
     branches: ["*"]
+    paths:
+      - "Backend/**"
   pull_request:
     branches: ["*"]
+    paths:
+      - "Backend/**"
 
 jobs:
   build:
@@ -25,7 +29,26 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm ci
+          cache-dependency-path: Backend/package-lock.json
+
+      # Installera dependencies
+      - name: Install dependencies
+        working-directory: ./Backend
+        run:
+          npm ci
+
+          # 2. Formattera, linta och bygga
+      - name: Run Prettier
+        run: npm run format --if-present
+
       - run: npm run build --if-present
+        working-directory: ./Backend
+
       - run: npm test
-      - run: npm run lint
+        working-directory: ./Backend
+
+      - name: Run ESLint
+        working-directory: ./Backend
+        run: |
+          npm run lint
+          npm run lint:fix
