@@ -31,25 +31,27 @@ jobs:
           cache: "npm"
           cache-dependency-path: Backend/package-lock.json
 
-      # Installera dependencies
+      # 1. Installera dependencies
       - name: Install dependencies
         working-directory: ./Backend
-        run:
-          npm ci
+        run: npm ci
 
-          # 2. Formattera, linta och bygga
+      # 2. Formattera kod
       - name: Run Prettier
         run: npm run format --if-present
         working-directory: ./Backend
 
-      - run: npm run build --if-present
-        working-directory: ./Backend
-
-      - run: npm test
-        working-directory: ./Backend
-
+      # 3. Linta kod
       - name: Run ESLint
         working-directory: ./Backend
         run: |
           npm run lint
           npm run lint:fix
+
+      # 4. Bygga projektet
+      - run: npm run build --if-present
+        working-directory: ./Backend
+
+      # 5. Köra tester
+      - run: npm test
+        working-directory: ./Backend
