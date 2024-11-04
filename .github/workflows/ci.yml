@@ -56,3 +56,4 @@ jobs:
 # 5. Köra tester
 - run: npm test
   working-directory: ./Backend
+
