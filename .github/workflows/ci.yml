@@ -12,7 +12,6 @@ on:
     branches: ["*"]
     paths:
       - "Backend/**"
-    
 
 jobs:
   build:
@@ -33,27 +32,26 @@ jobs:
           cache-dependency-path: Backend/package-lock.json
 
       # 1. Installera dependencies
-- name: Install dependencies
-  working-directory: ./Backend
-  run: npm ci
+      - name: Install dependencies
+        working-directory: ./Backend
+        run: npm ci
 
-# 2. Formattera kod
-- name: Run Prettier
-  run: npm run format --if-present
-  working-directory: ./Backend
+      # 2. Formattera kod
+      - name: Run Prettier
+        run: npm run format --if-present
+        working-directory: ./Backend
 
-# 3. Linta kod
-- name: Run ESLint
-  working-directory: ./Backend
-  run: |
-    npm run lint
-    npm run lint:fix
+      # 3. Linta kod
+      - name: Run ESLint
+        working-directory: ./Backend
+        run: |
+          npm run lint
+          npm run lint:fix
 
-# 4. Bygga projektet
-- run: npm run build --if-present
-  working-directory: ./Backend
+      # 4. Bygga projektet
+      - run: npm run build --if-present
+        working-directory: ./Backend
 
-# 5. Köra tester
-- run: npm test
-  working-directory: ./Backend
-
+      # 5. Köra tester
+      - run: npm test
+        working-directory: ./Backend
