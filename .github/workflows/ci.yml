@@ -49,3 +49,16 @@ jobs:
       # 5. Testa lite
       - run: npm test
         working-directory: ./Backend
+
+# SIMULERAR deployment till PRODUCTION
+  simulate-production-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Simulate deployment
+        run: |
+          echo "Simulerar deployment till production"
+          echo Variable ENV_SECRET: ${{ secrets.DATABASE_URL }}
+
+    
