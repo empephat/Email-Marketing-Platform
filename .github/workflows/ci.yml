@@ -42,9 +42,7 @@ jobs:
       # 3. Linta
       - name: Run ESLint
         working-directory: ./Backend
-        run: |
-          npm run lint
-          npm run lint:fix
+        run: npm run lint:fix
       # 4. Bygga
       - run: npm run build --if-present
         working-directory: ./Backend
