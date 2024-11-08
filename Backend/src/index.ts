@@ -13,7 +13,7 @@ import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+// hej hej
 const allowedOrigins =
   process.env.NODE_ENV === 'production'
     ? ['https://email-marketing-platform-frontend.vercel.app']
