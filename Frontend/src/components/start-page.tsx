@@ -19,7 +19,7 @@ export function StartPage() {
                             Get Started
                         </Button>
                         <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 px-6 py-3 rounded-lg text-lg">
-                            Learn More <ArrowRight className="ml-2 h-5 w-5" />
+                            Learn More About<ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                     </div>
                 </div>

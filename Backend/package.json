@@ -29,7 +29,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --loader ts-node/esm src/index.ts",
-    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "dev": "prisma generate && nodemon --watch src --exec ts-node src/index.ts",
     "start:prod": "npm run build && node dist/index.js",
     "build": "npm install && tsc",
     "vercel-build": "prisma generate",

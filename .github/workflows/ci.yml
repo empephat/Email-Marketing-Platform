@@ -15,11 +15,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest, macos-latest
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [18.x, 20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -31,25 +31,24 @@ jobs:
           cache: "npm"
           cache-dependency-path: Backend/package-lock.json
 
-      # Installera dependencies
+      # Installera nödvändigheter
       - name: Install dependencies
         working-directory: ./Backend
         run:
           npm ci
-
-          # 2. Formattera, linta och bygga
+      # 2. Formattera
       - name: Run Prettier
         run: npm run format --if-present
         working-directory: ./Backend
-
-      - run: npm run build --if-present
-        working-directory: ./Backend
-
-      - run: npm test
-        working-directory: ./Backend
-
+      # 3. Linta
       - name: Run ESLint
         working-directory: ./Backend
         run: |
           npm run lint
           npm run lint:fix
+      # 4. Bygga
+      - run: npm run build --if-present
+        working-directory: ./Backend
+      # 5. Testa lite
+      - run: npm test
+        working-directory: ./Backend
