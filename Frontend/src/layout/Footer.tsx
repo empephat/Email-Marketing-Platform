@@ -4,7 +4,7 @@ function Footer() {
   const checkUser = async () => {
     try {
       const response = await fetch(`${envMode()}/auth/status`, {
-        credentials: "include", // This line adds the credentials
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to check user credentials");
@@ -21,9 +21,9 @@ function Footer() {
       <p>&copy; 2024 Monkey Emails Corp. All rights reserved.</p>
       <button
         onClick={checkUser}
-        className="absolute rounded p-1 hover:shadow-md  border top-4 left-3"
+        className="absolute rounded p-1 hover:shadow-md  border top-3 left-3 bg-green-500 text-white hover:bg-green-700"
       >
-        Check user status
+        Check User Status
       </button>
     </footer>
   );
