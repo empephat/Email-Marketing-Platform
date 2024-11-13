@@ -17,18 +17,14 @@ function Footer() {
   };
 
   return (
-    <footer className="relative p-4 text-white bg-green-600 flex items-center justify-center">
-      <div>
-        <button
-          onClick={checkUser}
-          className="bg-green-500 text-white rounded px-4 py-2 hover:bg-green-700"
-        >
-          Check User Status
-        </button>
-      </div>
-      <p className="mx-auto">
-        &copy; 2024 Monkey Emails Corp. All rights reserved.
-      </p>
+    <footer className="relative p-4 text-center text-white bg-green-600">
+      <p>&copy; 2024 Monkey Emails Corp. All rights reserved.</p>
+      <button
+        onClick={checkUser}
+        className="absolute rounded p-1 hover:shadow-md  border top-3 left-3 bg-green-500 text-white hover:bg-green-700"
+      >
+        Check User Status
+      </button>
     </footer>
   );
 }
