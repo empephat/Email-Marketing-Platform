@@ -5,39 +5,14 @@ import { isAuthenticated } from "../middleware/auth";
 const router = Router();
 
 //*Create new campaign --------------------------------->
-// router.post("/createcampaign", async (req, res) => {
-//   const {
-//     campaignName,
-//     companyName,
-//     companyDescription,
-//     productDescription,
-//     targetAudience,
-//     userId,
-//   } = req.body;
-//   try {
-//     const campaign = await prisma.campaign.create({
-//       data: {
-//         campaignName,
-//         companyName,
-//         companyDescription,
-//         productDescription,
-//         targetAudience,
-//         userId,
-//       },
-//     });
-//     res.json(campaign);
-//   } catch (error) {
-//     res.status(400).json({ error: "Unable to create campaign" });
-//   }
-// });
-router.post("/createcampaign", async (req, res) => {
+router.post("/createcampaign", isAuthenticated, async (req, res) => {
   const {
     campaignName,
     companyName,
     companyDescription,
     productDescription,
     targetAudience,
-    userId,
+
   } = req.body;
 
   try {
@@ -46,10 +21,13 @@ router.post("/createcampaign", async (req, res) => {
       !companyName ||
       !companyDescription ||
       !productDescription ||
-      !targetAudience ||
-      !userId
+      !targetAudience
     ) {
       return res.status(400).json({ error: "Alla fält måste fyllas i" });
+    }
+
+    if (!req.user) {
+      return res.status(401).json({ error: "User not authenticated" });
     }
 
     const campaign = await prisma.campaign.create({
@@ -59,10 +37,10 @@ router.post("/createcampaign", async (req, res) => {
         companyDescription,
         productDescription,
         targetAudience,
-        userId,
+        userId: req.user.id, // Set user id to authenticated user id
       },
     });
-    res.json(campaign);
+    res.status(200).json(campaign);
   } catch (error: any) {
     console.error("Fel vid skapande av kampanj:", error);
     res
