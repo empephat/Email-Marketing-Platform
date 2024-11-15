@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
 import { AuthContextType, AuthAction, AuthState } from "../types/authTypes";
 import envMode from "@/components/helper/checkENVmode";
-import { userInfo } from "os";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
