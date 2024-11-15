@@ -71,15 +71,6 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/campaign-detail"
-                  className="relative hover:text-white/80 transition duration-300"
-                >
-                  Campaign Manager
-                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 hover:w-full"></span>
-                </Link>
-              </li>
-              <li>
                 <button className="hover:underline" onClick={logout}>
                   Logout
                 </button>

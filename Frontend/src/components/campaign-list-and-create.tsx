@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -76,6 +77,11 @@ export function CampaignListAndCreate() {
   ) => {
     const { name, value } = e.target;
     setNewCampaign((prev) => ({ ...prev, [name]: value }));
+  };
+  const navigate = useNavigate();
+
+  const handleClickOnCampaign = (id: string) => {
+    navigate(`/campaign-detail/${id}`);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -224,7 +230,8 @@ export function CampaignListAndCreate() {
           {campaigns.map((campaign) => (
             <Card
               key={campaign.id}
-              className="bg-white shadow-md hover:shadow-lg transition-shadow"
+              onClick={() => handleClickOnCampaign(campaign.id)}
+              className="bg-white shadow-md hover:shadow-lg transition-shadow cursor-pointer hover:bg-gray-50 z-10 relative"
             >
               <CardContent className="p-4">
                 <h3 className="text-lg font-semibold text-green-600">
@@ -236,7 +243,10 @@ export function CampaignListAndCreate() {
                 </p>
                 <button
                   className="mt-4 bg-red-400 hover:bg-red-700 text-white py-2 px-3 rounded transition duration-200"
-                  onClick={() => handleDelete(campaign.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(campaign.id);
+                  }}
                 >
                   Delete
                 </button>
