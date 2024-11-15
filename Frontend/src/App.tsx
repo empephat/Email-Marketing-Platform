@@ -1,15 +1,19 @@
 import "./index.css";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { RegisterPage } from "./components/register-page";
-import { StartPage } from "./components/start-page"
+import { StartPage } from "./components/start-page";
 import { LoginPage } from "./components/login-page";
 import { CampaignListAndCreate } from "./components/campaign-list-and-create";
 import { CampaignDetailsAndEmails } from "./components/campaign-details-and-emails";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
+  const { state } = useAuth();
+  const user = state.user;
+
   return (
     <BrowserRouter>
       <div className="flex flex-col min-h-screen">
@@ -17,12 +21,26 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<StartPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/campaigns" element={<CampaignListAndCreate />} />
+            <Route
+              path="/register"
+              element={!user ? <RegisterPage /> : <Navigate to="/campaigns" />}
+            />
+            <Route
+              path="/login"
+              element={!user ? <LoginPage /> : <Navigate to="/campaigns" />}
+            />
+
+            <Route
+              path="/campaigns"
+              element={
+                user ? <CampaignListAndCreate /> : <Navigate to="/login" />
+              }
+            />
             <Route
               path="/campaign-detail"
-              element={<CampaignDetailsAndEmails />}
+              element={
+                user ? <CampaignDetailsAndEmails /> : <Navigate to="/login" />
+              }
             />
           </Routes>
         </main>
