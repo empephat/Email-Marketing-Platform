@@ -6,27 +6,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle, X } from "lucide-react";
 import envMode from "./helper/checkENVmode";
+import { Campaign } from "@/types/campaignTypes";
 
-interface Campaign {
-  id: string;
-  campaignName: string;
-  companyName: string;
-  companyDescription: string;
-  productDescription: string;
-  targetAudience: string;
-  emails: {
-    id: string;
-    subject: string;
-    content: string;
-    recipients: string[];
-  }[];
-}
 export function CampaignListAndCreate() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [newCampaign, setNewCampaign] = useState({
     campaignName: "",
-    companyName: "Company Name (HardCoded)",
+    companyName: "",
     companyDescription: "",
     productDescription: "",
     targetAudience: "",
@@ -162,6 +149,22 @@ export function CampaignListAndCreate() {
                     id="campaignName"
                     name="campaignName"
                     value={newCampaign.campaignName}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border-green-300 focus:border-green-500 focus:ring focus:ring-green-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="companyName"
+                    className="block text-sm font-medium text-green-700"
+                  >
+                    Company Name
+                  </label>
+                  <Input
+                    id="companyName"
+                    name="companyName"
+                    value={newCampaign.companyName}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border-green-300 focus:border-green-500 focus:ring focus:ring-green-200"
                     required
