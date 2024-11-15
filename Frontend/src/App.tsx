@@ -6,6 +6,7 @@ import { StartPage } from "./components/start-page"
 import { LoginPage } from "./components/login-page";
 import { CampaignListAndCreate } from "./components/campaign-list-and-create";
 import { CampaignDetailsAndEmails } from "./components/campaign-details-and-emails";
+import { UserProfile } from "./components/user-profile";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 
@@ -22,8 +23,8 @@ function App() {
             <Route path="/campaigns" element={<CampaignListAndCreate />} />
             <Route
               path="/campaign-detail"
-              element={<CampaignDetailsAndEmails />}
-            />
+              element={<CampaignDetailsAndEmails />} />
+                 <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </main>
         <Footer />
