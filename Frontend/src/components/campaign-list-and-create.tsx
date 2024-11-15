@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle, X } from "lucide-react";
 import envMode from "./helper/checkENVmode";
+import { Campaign } from "@/types/campaignTypes";
 
-interface Campaign {
-  id: string;
-  campaignName: string;
-  companyName: string;
-  companyDescription: string;
-  productDescription: string;
-  targetAudience: string;
-  emails: {
-    id: string;
-    subject: string;
-    content: string;
-    recipients: string[];
-  }[];
-}
 export function CampaignListAndCreate() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [newCampaign, setNewCampaign] = useState({
     campaignName: "",
-    companyName: "Company Name (HardCoded)",
+    companyName: "",
     companyDescription: "",
     productDescription: "",
     targetAudience: "",
@@ -76,6 +64,11 @@ export function CampaignListAndCreate() {
   ) => {
     const { name, value } = e.target;
     setNewCampaign((prev) => ({ ...prev, [name]: value }));
+  };
+  const navigate = useNavigate();
+
+  const handleClickOnCampaign = (id: string) => {
+    navigate(`/campaign-detail/${id}`);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -163,6 +156,22 @@ export function CampaignListAndCreate() {
                 </div>
                 <div>
                   <label
+                    htmlFor="companyName"
+                    className="block text-sm font-medium text-green-700"
+                  >
+                    Company Name
+                  </label>
+                  <Input
+                    id="companyName"
+                    name="companyName"
+                    value={newCampaign.companyName}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border-green-300 focus:border-green-500 focus:ring focus:ring-green-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
                     htmlFor="companyDescription"
                     className="block text-sm font-medium text-green-700"
                   >
@@ -224,7 +233,8 @@ export function CampaignListAndCreate() {
           {campaigns.map((campaign) => (
             <Card
               key={campaign.id}
-              className="bg-white shadow-md hover:shadow-lg transition-shadow"
+              onClick={() => handleClickOnCampaign(campaign.id)}
+              className="bg-white shadow-md hover:shadow-lg transition-shadow cursor-pointer hover:bg-gray-50 z-10 relative"
             >
               <CardContent className="p-4">
                 <h3 className="text-lg font-semibold text-green-600">
@@ -236,7 +246,10 @@ export function CampaignListAndCreate() {
                 </p>
                 <button
                   className="mt-4 bg-red-400 hover:bg-red-700 text-white py-2 px-3 rounded transition duration-200"
-                  onClick={() => handleDelete(campaign.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(campaign.id);
+                  }}
                 >
                   Delete
                 </button>
