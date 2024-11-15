@@ -1,6 +1,9 @@
 import envMode from "@/components/helper/checkENVmode";
+import { useAuth } from "@/hooks/useAuth";
 
 function Footer() {
+  const { state } = useAuth();
+
   const checkUser = async () => {
     try {
       const response = await fetch(`${envMode()}/auth/status`, {
@@ -10,7 +13,8 @@ function Footer() {
         throw new Error("Failed to check user credentials");
       }
       const data = await response.json();
-      console.log(data);
+      console.log("From server:", data);
+      console.log("From authContext:", state);
     } catch (err) {
       console.error(err);
     }
