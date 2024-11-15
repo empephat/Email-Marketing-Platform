@@ -38,13 +38,15 @@ function App() {
               }
             />
             <Route
-
               path="/campaign-detail/:id"
               element={
                 user ? <CampaignDetailsAndEmails /> : <Navigate to="/login" />
               }
             />
-
+            <Route
+              path="/profile"
+              element={user ? <UserProfile /> : <Navigate to="/login" />}
+            />
           </Routes>
         </main>
         <Footer />
