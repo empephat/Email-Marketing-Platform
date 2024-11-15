@@ -1,5 +1,6 @@
 import envMode from "@/components/helper/checkENVmode";
 import { Link, useNavigate } from "react-router-dom";
+import { User } from 'lucide-react'
 import { useAuth } from "@/hooks/useAuth";
 
 function Header() {
@@ -75,6 +76,13 @@ function Header() {
                   Logout
                 </button>
               </li>
+            <li>
+            <Link to="/profile" className="block">
+      <div className="w-10 h-10 rounded-full bg-green-200 flex items-center justify-center hover:bg-green-300 transition-colors">
+        <User className="text-green-800" size={20} />
+      </div>
+    </Link>
+            </li>
             </>
           )}
         </ul>

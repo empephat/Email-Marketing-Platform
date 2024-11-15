@@ -6,6 +6,7 @@ import { StartPage } from "./components/start-page";
 import { LoginPage } from "./components/login-page";
 import { CampaignListAndCreate } from "./components/campaign-list-and-create";
 import { CampaignDetailsAndEmails } from "./components/campaign-details-and-emails";
+import { UserProfile } from "./components/user-profile";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import { useAuth } from "./hooks/useAuth";
@@ -37,11 +38,13 @@ function App() {
               }
             />
             <Route
+
               path="/campaign-detail/:id"
               element={
                 user ? <CampaignDetailsAndEmails /> : <Navigate to="/login" />
               }
             />
+
           </Routes>
         </main>
         <Footer />
